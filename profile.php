@@ -4,7 +4,14 @@
     if(!isset( $_SESSION['GebruikerId'])) {
         echo header('location: index.php');
     }  
-    $resultaat = $conn->query("select *  from tblgebruikers where GebruikerEmail = '{$_SESSION['GebruikerEmail']}'");
+    $query = mysqli_query($conn, "select *  from tblgebruikers where GebruikerEmail = '{$_SESSION['GebruikerEmail']}'");
+    $row = mysqli_fetch_array($query);
+
+    $GebruikerNaam = $row['GebruikerNaam'];
+    $GebruikerAvatar = $row['GebruikerAvatar'];
+    $GebruikerEmail = $row['GebruikerEmail'];
+    $Punten = $row['Punten'];
+    $GebruikerId = $row['GebruikerId'];
 ?>
 <html>
     <head>
@@ -41,8 +48,34 @@
             <a href=""><li> <i class="far fa-envelope fa-lg"></i> Support</li></a>
             <a href="loguit.php"><li> <i class="fas fa-power-off fa-lg"></i> Logout</li></a>
         </div>
-        <div id="main">
-             
+        <div id="main"> 
+            <div class="row">
+                <div class="u-full-width">
+                    <h1>Profile</h1>
+                </div>
+                <div class="u-full-width">
+                    
+                    <div class="three columns" align="center">
+                    <img src="<?php echo $GebruikerAvatar;?>" class="profile-avatar u-full-width" onerror="this.src='images/user.png'">
+                    </div>
+                    <div class="five columns" style="border: 3px solid black">
+                        <div style="font-size: 25px;">Name: </div>
+                        <input class="u-full-width" type="text" placeholder="<?php echo $GebruikerNaam;?>" name="Naam" value="<?php echo $GebruikerNaam;?>">
+                        <div style="font-size: 25px;">Email: </div>
+                        <input class="u-full-width" type="text" placeholder="<?php echo $GebruikerEmail;?>" name="Naam" value="<?php echo $GebruikerEmail;?>">
+                        <div style="font-size: 25px;">Avatar: </div>
+                        <input class="u-full-width" type="text" placeholder="<?php echo $GebruikerAvatar;?>" name="Naam" value="<?php echo $GebruikerAvatar;?>">
+                        <div style="font-size: 25px;">Punten: <?php echo $Punten;?></div>
+                    </div>
+                    <div class="four columns" style="border: 3px solid black">
+                        <ul style="padding-top: 5px">
+                            <il><a class="fas fa-cogs fa-lg" > Settings</a></il>
+                        </ul>
+                    </div>
+                    
+                    
+                </div>      
+            </div>
         </div>
     </body>
 </html>

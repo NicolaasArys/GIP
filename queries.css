@@ -1,0 +1,57 @@
+@media (min-width: 400px) {
+    
+}
+
+/* Larger than phablet */
+@media (min-width: 550px) {
+    
+}
+
+/* Larger than tablet */
+@media (max-width: 750px) {
+    .login-background {
+        width: 100%;
+        position: relative;
+    }
+    .login-form {
+        width: 100%;
+        position: absolute;
+        top: 9%;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+    }
+    .login-form form {
+        margin: 0 4%;
+        background-color: white;
+        padding: 8px;
+
+    }
+    .login-circle {
+        top: 50%;
+    }
+    main {
+        margin-left: 4%;
+        margin-right: 4%;
+    }
+    .mobile {
+        display: block;
+    }
+    #mobile {
+        visibility: hidden;
+    }
+    #mobile:target {
+        visibility: visible;
+    }
+}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {
+    
+}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {
+    
+}

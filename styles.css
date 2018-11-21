@@ -1,0 +1,180 @@
+/* General */
+body {
+	background: #6b92b9;
+    overflow: auto;
+    overflow-x: hidden;
+}
+canvas {
+    z-index: 0;
+}
+.float-left {
+    float: left;
+}
+.float-right {
+    float: right;
+}
+
+/* Main */
+#main {
+    padding: 16px;
+    position: absolute;
+    top: 60px;
+    width: 98%;
+}
+.login {
+    margin: 0 auto;
+    max-width: 700px;
+    height: 100px;
+    border-radius: 3px;
+}
+/* Shop */
+.shop-photo {
+    max-width: 250px;
+    height: auto;
+    border: 3px solid;
+}
+.shop-add {
+    background-color: #006F57;
+    color: white;
+}
+.search-container {
+    float: right;
+}
+.search-container .button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+}
+input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+}
+.shopping-cart-button {
+    font-size: 20px;
+    cursor: pointer;
+    font-size: 40px;
+    color: black;
+    padding: 10px 15px;
+    border: none;
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+}
+.cart-sidebar {
+    height: 100vh;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 56px;
+    right: 0;
+    background-color: #006F57;
+    overflow-x: hidden;
+    transition: 0.5s;
+    overflow: auto;
+}
+.shop-list {
+    
+}
+/* Profile */
+.profile-avatar{
+    height:auto;
+    border: 3px solid black;
+}
+
+/* Navigation */
+a {
+    text-decoration: none;
+}
+.title {
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+}
+.nav {
+    padding: 8px 10px 8px 10px;
+    background-color: #006F57;
+    text-align: center;
+    position: fixed;
+    width: 99%;
+    height: 40px;
+    z-index: 2;
+}
+.nav-text {
+    color: #ffffff;
+}
+.nav-margin {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+.nav-margin-logout {
+    margin-right: 20px;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+.nav-login {
+    color: #ffffff;
+    font-size: 25px;
+}
+.nav-sidebar {
+    height: 100vh;
+    width: 0;
+    position: fixed;
+    z-index: 999;
+    top: 56px;
+    left: 0;
+    background-color: #006F57;
+    overflow-x: hidden;
+    transition: 0.5s;
+    overflow: auto;
+}
+.nav-sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+.nav-sidebar a:hover {
+    color: #f1f1f1;
+}
+.nav-sidebar li {
+    padding: 28px;
+    list-style-type: none;
+}
+.closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    font-size: 40px;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+}
+/* Mobile */
+@media screen and (max-width: 870px) {
+    #mobile{
+        visibility: hidden;
+        display: none;
+    }
+    .title {
+        padding-right: 15px;
+    }
+}
+@media screen and (min-width: 871px) {
+    .openbtn {
+        visibility: hidden;
+    }
+}
