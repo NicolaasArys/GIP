@@ -1,57 +1,26 @@
-<!DOCTYPE html>
 <html>
-<head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-* {box-sizing: border-box;}
-
-body {
-    background-color: aqua
-}
-
-
-
-
-
-.topnav input[type=text] {
-  padding: 6px;
-  margin-top: 8px;
-  font-size: 17px;
-  border: none;
-}
-
-.topnav .search-container button {
-  
-  padding: 6px 10px;
-  margin-top: 8px;
-  margin-right: 16px;
-  background: #ddd;
-  font-size: 17px;
-  border: none;
-  cursor: pointer;
-}
-
-.topnav .search-container button:hover {
-  background: #ccc;
-}
-
-
-</style>
-</head>
-<body>
-
-<div class="topnav">
-  <a class="active" href="#home">Home</a>
-  <a href="#about">About</a>
-  <a href="#contact">Contact</a>
-  <div class="search-container">
-    <form action="/action_page.php">
-      <input type="text" placeholder="Search.." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
-  </div>
-</div>
-
-
-</body>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="sudoku.js"></script>
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body style="background-color: white;">
+        <button onclick="sudoku()">Button</button>
+        <div><div id="sudoku"></div></div>
+        <div>
+            <ul>
+                <button class="sudoku-button">1</button>
+                <button class="sudoku-button">2</button>
+                <button class="sudoku-button">3</button>
+                <button class="sudoku-button">4</button>
+                <button class="sudoku-button">5</button>
+                <button class="sudoku-button">6</button>
+                <button class="sudoku-button">7</button>
+                <button class="sudoku-button">8</button>
+                <button class="sudoku-button">9</button>
+                <button class="sudoku-button">Wissen</button>
+            </ul>
+        </div>
+    </body>
 </html>
