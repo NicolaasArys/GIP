@@ -69,12 +69,12 @@
                     ?>
                     <h2>Login</h2>
                     <form method="post" action="index.php">
-                        <div>Email</div>
+                        <label>Email</label>
                         <input type="email" name="GebruikerEmail" required="required">
-                        <div>Password</div>
+                        <label>Password</label>
                         <input type="password" name="Wachtwoord" required="required">
                         <div></div>
-                        <input type="submit" value="Login">
+                        <input class="shop-add" type="submit" value="Login">
                     </form>
                 </section>
             </div>

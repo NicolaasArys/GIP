@@ -4,7 +4,9 @@
     if(!isset( $_SESSION['GebruikerId'])) {
         echo header('location: index.php');
     }  
-    $resultaat = $conn->query("select *  from tblgebruikers where GebruikerEmail = '{$_SESSION['GebruikerEmail']}'");
+    $sql = $conn->query("select *  from tblgebruikers where GebruikerEmail = '{$_SESSION['GebruikerEmail']}'");
+    $row = mysqli_fetch_array($sql);
+    $Punten = $row['Punten'];
 ?>
 <html>
     <head>
@@ -16,10 +18,12 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/skeleton.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="Javascript/sneew.js"></script>
         <link rel="icon" type="image/png" href="images/favicon.png"/>
         <title>Advent Calender</title>
         <script src="Javascript/sidebar.js"></script>
+        <script src="Javascript/general.js"></script>
     </head>
     <body>
         <canvas id="canvas" style="position: fixed"></canvas> 
@@ -30,7 +34,7 @@
             <i id="mobile"><a class="fas fa-shopping-cart fa-lg nav-text nav-margin" href="shop.php"> Shop </a></i>
             <b class="title">Advent Calendar</b>
             <i id="mobile"><a class="fas fa-user fa-lg nav-text nav-margin" href="profile.php"> Profile </a></i>
-            <i id="mobile"><a class="fas fa-envelope fa-lg nav-text nav-margin" href=""> Support </a></i>
+            <i id="mobile"><a class="fas fa-envelope fa-lg nav-text nav-margin" href="support.php"> Support </a></i>
             <i id="mobile"><a class="fas fa-power-off fa-lg nav-text nav-margin-logout u-pull-right" href="loguit.php"> Logout</a></i>
         </nav>
         <div id="mySidebar" class="nav-sidebar">
@@ -38,7 +42,7 @@
             <a href="home.php" class="nav-sidebar-text"><li> <i class="fas fa-home fa-lg"></i> Home</li></a>
             <a href="shop.php"><li> <i class="fas fa-shopping-cart fa-lg"></i> Shop</li></a>
             <a href="profile.php"><li> <i class="far fa-user fa-lg"></i> Profile</li></a>
-            <a href=""><li> <i class="far fa-envelope fa-lg"></i> Support</li></a>
+            <a href="support.php"><li> <i class="far fa-envelope fa-lg"></i> Support</li></a>
             <a href="loguit.php"><li> <i class="fas fa-power-off fa-lg"></i> Logout</li></a>
         </div>
         <div id="main">
@@ -46,7 +50,7 @@
             <div class="row">
                 <div class="search-container">
                     <form method="post" action="shop.php">
-                        <input type="text" placeholder="Search item..." autocomplete="off" name="search" class="">
+                        <input type="text" placeholder="Search item..." autocomplete="off" name="search">
                         <button type="submit" class="button"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
@@ -67,7 +71,7 @@
                         $count = 0;
                         while(mysqli_stmt_fetch($query)){
                             if($count%4 == 0){
-                            echo "<div class='row'>";
+                                echo "<div class='row'>";
                             }
                             $count++;
                             ?>
@@ -106,6 +110,7 @@
                     <div><?php echo $ProductOmschrijving;?></div>
                     <div>Kost: <?php echo $ProductKost;?> punten</div>
                     <form method='post' action='shop.php?action=add&id=<?php echo $ProductId; ?>'>
+                        <input type='hidden' name='ProductAvatar' value='<?php echo $ProductAvatar;?>'>
                         <input type='hidden' name='ProductNaam' value='<?php echo $ProductNaam;?>'>
                         <input type='hidden' name='ProductKost' value='<?php echo $ProductKost;?>'>
                         <input type='hidden' name='ProductOmschrijving' value='<?php echo $ProductOmschrijving;?>'>
@@ -122,16 +127,15 @@
         <?php
         if(isset($_POST['add'])){
             if(isset($_SESSION['shopping_cart'])){
-                echo "<h1>Homo</h1>";
                 $item_array_id = array_column($_SESSION["shopping_cart"], "ProductId");
                 if(!in_array($_GET["id"], $item_array_id)){
                     $count = count($_SESSION["shopping_cart"]);
                     $item_array = array(
                         'ProductId'   => $_GET['id'],
+                        'ProductAvatar'   => $_POST["ProductAvatar"],
                         'ProductNaam'   => $_POST["ProductNaam"],
                         'ProductKost'   => $_POST["ProductKost"],
-                        'ProductOmschrijving'   => $_POST["ProductOmschrijving"],
-                        'ProductHoeveelheid'   => 1
+                        'ProductOmschrijving'   => $_POST["ProductOmschrijving"]
                     );
                     $_SESSION["shopping_cart"][$count] = $item_array;
                 }else{
@@ -141,10 +145,10 @@
             }else{
                 $item_array = array(
                     'ProductId'   => $_GET['id'],
+                    'ProductAvatar'   => $_POST["ProductAvatar"],
                     'ProductNaam'   => $_POST["ProductNaam"],
                     'ProductKost'   => $_POST["ProductKost"],
-                    'ProductOmschrijving'   => $_POST["ProductOmschrijving"],
-                    'ProductHoeveelheid'   => 1
+                    'ProductOmschrijving'   => $_POST["ProductOmschrijving"]
                 );
                 $_SESSION["shopping_cart"][0] = $item_array;
             }
@@ -166,23 +170,43 @@
         <button class="shopping-cart-button" onclick="openCart()">❮</button>
         <div id="myCart" class="cart-sidebar">
             <a href="javascript:void(0)" class="closebtn" onclick="closeCart()">×</a>
-            <?php
-                if(!empty($_SESSION["shopping_cart"])){
-                    $total = 0;
-                    foreach($_SESSION["shopping_cart"] as $key => $values){
-                        ?>
             <div class="shop-list">
                 <h3>Shopping Cart</h3>
-                
-            </div>
-                        <?php
+                <?php
+                $total = 0;
+                    if(!empty($_SESSION["shopping_cart"])){
+                        
+                        foreach($_SESSION["shopping_cart"] as $keys => $values){
+                            
+                            ?>
+                            <div class="row" style="margin-bottom: 5px;">
+                                <div style="display:inline-block;vertical-align:top;">
+                                    <img src="<?php echo $values['ProductAvatar'];?>" class="u-full-width shop-photo-cart">
+                                </div>
+                                <div style="display:inline-block;vertical-align:top;">
+                                    <div class="shop-cart-text"><?php echo $values['ProductNaam'];?></div>
+                                    <div class="shop-cart-text"><?php echo $values['ProductKost']?> Points</div>
+                                    <a href="shop.php?action=delete&id=<?php $item_id = $values["ProductId"];echo $item_id; ?>">Remove</a>
+                                </div>
+                            </div>
+                            <?php
+                            $total += $values['ProductKost']; 
+                        }
+
                     }
-                    ?>
-            <h4>Total: <?php echo $total;?></h4>
-            
+                ?>
+                <div style="margin-top: 50px;">
+                    <h4>My points: <?php echo $Punten;?></h4>
                     <?php
-                }
-            ?>
+                        if($Punten >= $total){
+                            echo "<h4>Total: ".$total." points</h4>";
+                        }else {
+                            echo "<h4 style='color: red'>Total: ".$total." points</h4>";
+                        }
+                    ?>
+                    <button class="shop-order-button">Order</button>
+                </div>
+            </div>
         </div>
     </body>
 </html>

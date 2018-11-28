@@ -4,8 +4,13 @@
     if(!isset( $_SESSION['GebruikerId'])) {
         echo header('location: index.php');
     }  
-    $resultaat = $conn->query("select *  from tblgebruikers where GebruikerEmail = '{$_SESSION['GebruikerEmail']}'");
+    $query = mysqli_query($conn, "select *  from tblgebruikers where GebruikerEmail = '{$_SESSION['GebruikerEmail']}'");
+
+    $row = mysqli_fetch_array($query);
+    $GebruikerEmail = $row['GebruikerEmail'];
+    
 ?>
+<!DOCTYPE>
 <html>
     <head>
         <meta charset="utf-8">
@@ -29,19 +34,35 @@
             <i id="mobile"><a class="fas fa-shopping-cart fa-lg nav-text nav-margin" href="shop.php"> Shop </a></i>
             <b class="title">Advent Calendar</b>
             <i id="mobile"><a class="fas fa-user fa-lg nav-text nav-margin" href="profile.php"> Profile </a></i>
-            <i id="mobile"><a class="fas fa-envelope fa-lg nav-text nav-margin" href="support.php"> Support </a></i>
+            <i id="mobile"><a class="fas fa-envelope fa-lg nav-text nav-margin" href=""> Support </a></i>
             <i id="mobile"><a class="fas fa-power-off fa-lg nav-text nav-margin-logout u-pull-right" href="loguit.php"> Logout</a></i>
         </nav>
+        
         <div id="mySidebar" class="nav-sidebar">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
             <a href="home.php" class="nav-sidebar-text"><li> <i class="fas fa-home fa-lg"></i> Home</li></a>
             <a href="shop.php"><li> <i class="fas fa-shopping-cart fa-lg"></i> Shop</li></a>
             <a href="profile.php"><li> <i class="far fa-user fa-lg"></i> Profile</li></a>
-            <a href="support.php"><li> <i class="far fa-envelope fa-lg"></i> Support</li></a>
+            <a href=""><li> <i class="far fa-envelope fa-lg"></i> Support</li></a>
             <a href="loguit.php"><li> <i class="fas fa-power-off fa-lg"></i> Logout</li></a>
         </div>
         <div id="main">
-             
+            <div class="login">
+                <section>
+                    <h2 style="text-align: center;">Support</h2>
+                    <form method="post" action="sendMail.php" style="font-size: 25px;text-align: center;">
+                        <div>Email</div>
+                        <div class="support-email"><?php echo $GebruikerEmail ;?></div>
+                        <div>Subject</div>
+                        <input type="text" name="subject" placeholder="Subject" class="u-full-width">
+                        <div>Bericht</div>
+                        <textarea placeholder="Message" name="message" class="support-message u-full-width" maxlength="5000"></textarea>
+                        <div>
+                            <button type="submit" name="submit" class="shop-add">Send</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
         </div>
     </body>
 </html>

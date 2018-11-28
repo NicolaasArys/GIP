@@ -61,20 +61,20 @@
                     }    
                 }
                 ?>
-                <section class="register">
+                <section>
                     <h2>Registeren</h2>
-                    <form method="post" action="">
+                    <form method="post" action="regristreren.php" >
                         <label>Naam</label>
-                        <input type="text" name="GebruikerNaam" placeholder="" required=""  maxlength='20'>
+                        <input type="text" name="GebruikerNaam" placeholder="" required=""  maxlength='20' class="input-box">
                         <label>Email</label>
-                        <input type="Email" name="GebruikerEmail" placeholder="" required=""  maxlength='75'>
+                        <input type="Email" name="GebruikerEmail" placeholder="" required=""  maxlength='75' class="input-box">
                         <label>Avatar url (optioneel)</label>
-                        <input type="text" name="GebruikerAvatar" placeholder="">
+                        <input type="text" name="GebruikerAvatar" placeholder="" class="input-box">
                         <label>Wachtwoord</label>
-                        <input type="password" name="Wachtwoord" placeholder="" required="" minlength='5'>
+                        <input type="password" name="Wachtwoord" placeholder="" required="" minlength='5' class="input-box">
                         <label>Herhaal wachtwoord</label>
-                        <input type="password" name="Wachtwoord2" placeholder="" required="" minlength='5'> <br/>
-                        <input type="submit" value="Registeren">
+                        <input type="password" name="Wachtwoord2" placeholder="" required="" minlength='5' class="input-box"> <br/>
+                        <input class="shop-add" type="submit" value="Registeren">
                     </form>
                 </section>  
             </div>
